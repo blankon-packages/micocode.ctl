@@ -1,0 +1,18 @@
+Source: microcode.ctl
+Section: contrib/oldlibs
+Priority: extra
+Maintainer: Giacomo Catenazzi <cate@debian.org>
+Build-Depends: debhelper (>= 7.0.50)
+Standards-Version: 3.9.3
+
+Package: microcode.ctl
+Architecture: i386 amd64
+Pre-Depends: dpkg (>= 1.15.7.2)
+Depends: iucode-tool, ${misc:Depends}, ${shlibs:Depends}
+Conflicts: intel-microcode (<< 1)
+Description: Intel IA32/IA64 CPU Microcode Utility (transitional package)
+ This is a transitional package to help migrate systems to the new
+ version of intel-microcode and to iucode-tool, which superseded
+ microcode.ctl.
+ .
+ This is a dummy package.  You can safely purge or remove it.

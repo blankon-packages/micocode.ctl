@@ -1,0 +1,495 @@
+microcode.ctl (1.18~0+nmu2blankon1) tambora; urgency=medium
+
+  * Remove depends intel-microcode
+
+ -- Syai Mif <syaimif@di.blankon.in>  Mon, 04 Jul 2016 00:30:28 +0700
+
+microcode.ctl (1.18~0+nmu2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Add changelog entries for 1.17-13.2 and 1.17-13.1 (closes: #687835)
+    Missing changelog entries wreak havok with the BTS version tracking,
+    this is not simply a cosmetic fix.
+
+ -- Henrique de Moraes Holschuh <hmh@debian.org>  Sun, 16 Sep 2012 11:01:15 -0300
+
+microcode.ctl (1.18~0+nmu1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Replace microcode.ctl with a transitional package, to migrate
+    systems to the new intel-microcode package
+    + Change to empty native package, debhelper compat level 7
+    + debian/copyright: update
+    + Move to contrib/oldlibs, priority extra
+    + Remove replaces of a package not seen in the last decade
+    + Change description to that of a transitional package
+    + Depend on intel-microcode (>> 1) which superseded installing
+      microcode updates, and on iucode-tool, which superseded
+      the processing of microcode directly downloaded from Intel
+    + Conflict with intel-microcode (<< 1) to be able to remove
+      /usr/share/misc/intel-microcode.dat which might have been
+      installed either by microcode.ctl's update-intel-microcode
+      script or by intel-microcode (<< 1).
+    + Use dpkg-maintscript-helper to remove the initscript
+    + Remove /usr/share/misc/intel-microcode.dat if still present when
+      configuring, and regenerates the initramfs in that case.  This
+      avoids left-over cruft microcode in the initramfs for the case
+      where update-intel-microcode was used, and we're being configured
+      together with intel-microcode (>> 1)
+  * This upload effectively removes microcode.ctl from Debian.  Close all
+    open bugs against microcode.ctl:
+    + closes: #282583, #500802, #563910, #571408, #593845, #597039, #608675
+    + closes: #627261, #660121, #663360, #664492, #674667, #684104
+
+ -- Henrique de Moraes Holschuh <hmh@debian.org>  Sun, 02 Sep 2012 16:14:26 -0300
+
+microcode.ctl (1.17-13.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Brazilian Portuguese (Flamarion Jorge).  Closes: #622662
+    - Dutch; (Jeroen Schot).  Closes: #633834
+    - Italian (Francesca Ciceri).  Closes: #656246
+
+ -- Christian Perrier <bubulle@debian.org>  Wed, 18 Jan 2012 07:27:09 +0100
+
+microcode.ctl (1.17-13.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Danish (Joe Hansen).  Closes: #595630
+    - Japanese (Hideki Yamane).  Closes: #599890
+    - Slovak (Ivan Masár).  Closes: #619312
+
+ -- Christian Perrier <bubulle@debian.org>  Thu, 31 Mar 2011 07:19:42 +0200
+
+microcode.ctl (1.17-13) unstable; urgency=low
+
+  * update-intel-microcode: retrieve the first firmware in the RSS
+    applying patch from Hajo Moeller (Closes: #549699)
+  * remove possible needless dependency on po-debconf (Closes: #539943)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 07 Oct 2009 08:16:54 +0200
+
+microcode.ctl (1.17-12) unstable; urgency=low
+
+  * Downgrade intel-microcode to Recommends, removing the circular
+    dependency (Closes: #530338), giving some more visibility.
+  * extract microcode to a temporary file, in case wget will fail
+    (Closes: #500798)
+  * Remove support for old broken kernels  (Closes: #501074)
+  * Changed the priority and the default of debconf question:
+    don't download microcode by default (Closes: #529982)
+  * no bashism in actual init.d script, so let allow /bin/sh to
+    parse it (Closes: #534049)
+  * Improve the output on errors (Closes: #495146), and handle
+    better the errors
+  * exit imediately if no Intel processors are found (Closes: #515760)
+  * bump to policy 2.8.2
+
+ -- Giacomo Catenazzi <cate@debian.org>  Sun, 26 Jul 2009 12:40:31 +0200
+
+microcode.ctl (1.17-11) unstable; urgency=low
+
+  * Fix "Invalid parameter for modprobe call in rc script"
+    in debian/microcode.ctl.init(Closes: #519904)
+  * Update Galician translation, thanks to Marce Villarino (Closes: #512244)
+  * Bumped version-standards to 3.8.1, no changes needed
+  * Correct lintian command-with-path-in-maintainer-script.
+  * add homepage to debian/control
+
+ -- Giacomo Catenazzi <cate@debian.org>  Tue, 17 Mar 2009 08:06:21 +0100
+
+microcode.ctl (1.17-10) unstable; urgency=low
+
+  * Add Spanish translation of debconf (Closes: #499213)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 15 Oct 2008 08:22:56 +0200
+
+microcode.ctl (1.17-9) unstable; urgency=medium
+
+  * update-intel-microcode: new format (.tgz) in newer microcodes
+    (from 2008-09-10) (Closes: #498975, #498779)
+  * set also --no-verbose option, or it will eventually conflict
+    with .wgetrc and --quiet. (Closes: #495024)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 15 Sep 2008 09:13:38 +0200
+
+microcode.ctl (1.17-8) unstable; urgency=low
+
+  * Now "update-intel-microcode" uses the Intel website to
+    check the microcode
+  * Sugest the new "intel-microcode" package.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 27 Feb 2008 08:18:15 +0100
+
+microcode.ctl (1.17-7) unstable; urgency=low
+  
+  * New microcode and document intel site as new official download
+    source
+  * Finnish translation of the debconf templates,
+    thanks Esko (Closes: #457224)
+  * New microcodes includes support for core due (Closes: #439872)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 11 Feb 2008 08:45:54 +0100
+
+microcode.ctl (1.17-6) unstable; urgency=low
+
+  * Use cdbs/1/class/makefile.mk instead of manual rules
+  * Correct postint (use -e instead of -x test on old microcode
+    (closes: #440742)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Tue, 04 Sep 2007 08:06:17 +0200
+
+microcode.ctl (1.17-5) unstable; urgency=low
+
+  * Remove references to the obsolete 'modutils' from dependencies
+  * Ooops. Include microcode_ctl binary (and manpage) (closes: #439871)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Tue, 28 Aug 2007 08:44:05 +0200
+
+microcode.ctl (1.17-4) unstable; urgency=low
+
+  * Use cdbs building scripts
+  * Move more "arguments" to debhelper into debhelper files
+  * BTW a new microcode is available
+
+ -- Giacomo Catenazzi <cate@debian.org>  Sun, 26 Aug 2007 21:46:08 +0200
+
+microcode.ctl (1.17-3) unstable; urgency=low
+
+  * add debian/watch
+  * postinst should not fail on non Intel machines (closes: #428822)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Sat, 21 Jul 2007 11:24:01 +0200
+
+microcode.ctl (1.17-2) unstable; urgency=low
+
+  [Giacomo Catenazzi]
+  * In posinst don't write error to stdout (it confuses debconf),
+    and better error handling.
+    Closes: #430759, #430036
+  * Don't remove microcode module (clone of #430759)
+  * Remove check and workaround for wrong makedev-2.3.1.52.
+  
+  [Christian Perrier]
+  * Debconf templates and debian/control reviewed by the
+    debian-l10n-english team as part of the Smith review project.
+    Closes: #429445, #430461, #427105
+  * Debconf translation updates:
+    - Swedish. Closes: #430448
+    - German. Closes: #430460
+    - Galician. Closes: #430482
+    - Basque. Closes: #430515
+    - Vietnamese. Closes: #430536
+    - Czech. Closes: #431256
+    - Russian. Closes: #431306
+    - French.
+    - Portuguese. Closes: #431622
+
+ -- Giacomo Catenazzi <cate@debian.org>  Sat, 14 Jul 2007 09:21:35 +0200
+
+microcode.ctl (1.17-1) unstable; urgency=low
+
+  * New upstream release (new microcode) (Closes: #424728).
+  * Typo fix: thanks to Reuben Thomas (Closes: #418288).
+  * Updated scripts to debhelper compat=5
+  * Init.d script has the LSB header
+  * Updated, correctected and renamed the check-update.sh script into
+    /usr/sbin/update-intel-microcode
+  * Use debconf to see if we should check online about microcode
+
+ -- Giacomo Catenazzi <cate@debian.org>  Thu, 17 May 2007 22:30:28 +0200
+
+microcode.ctl (1.16-1) unstable; urgency=low
+
+  * New upstream release (new microcode)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 31 Jan 2007 08:58:11 +0100
+
+microcode.ctl (1.15-1) unstable; urgency=low
+
+  * New upstream release (new microcode)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon,  9 Oct 2006 22:12:07 +0200
+
+microcode.ctl (1.14-1) unstable; urgency=low
+
+  * New upstream release (new microcode)
+  * Bug fix: "microcode.ctl: Failed downloads should be deleted", thanks
+    to Reuben Thomas (Closes: #372699).
+  * bzip2 now is in /bin and no more in /usr/bin
+  * Added /usr/share/doc/microcode.ctl/check-update.sh , a script that
+    check and eventually update the microcode. Thanks to Andrew Pollock
+    (Closes: #315068).
+
+ -- Giacomo Catenazzi <cate@debian.org>  Sun,  9 Jul 2006 19:07:01 +0200
+
+microcode.ctl (1.13-2) unstable; urgency=low
+
+  * Add 'udev' as alternative to 'makedev'
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 29 May 2006 23:23:58 +0200
+
+microcode.ctl (1.13-1) unstable; urgency=low
+
+  * New upstream release:
+      microcode: 05Jan2006
+      no other code changes
+  * Removed obsolete text (old kernel) in package description
+    (closes: #340087)
+  
+ -- Giacomo Catenazzi <cate@debian.org>  Tue,  7 Feb 2006 08:48:22 +0100
+
+microcode.ctl (1.12-2) unstable; urgency=low
+
+  * x86_64 is 'amd64' (not 'IA64') (closes: #335781)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Tue, 25 Oct 2005 21:40:37 +0200
+
+microcode.ctl (1.12-1) unstable; urgency=low
+
+  * New upstream release: (closes: #330849)
+      microcode: 29Aug2005
+      no other code changes
+  * In init.d script: assume debian always! (closes: #287526)
+  * Build also on x86_64
+  
+ -- Giacomo Catenazzi <cate@debian.org>  Sun, 23 Oct 2005 16:32:44 +0200
+
+microcode.ctl (1.11-1) unstable; urgency=low
+
+  * New upstream release:
+      microcode: 12Oct2004
+      support for x86_64
+      removed unneeded -i option
+  * Small English correction (closes: #272509)
+  * people.debian.org is no more readable by IP, so I changed it
+    with the correct URL. The disavantage on not-internet connected
+    machines: now we have an extra timeout trying to resolve
+    the name, anyway maximun: 20 seconds.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed,  3 Nov 2004 08:40:54 +0100
+
+microcode.ctl (1.09-2) unstable; urgency=low
+
+  * After talking with debian, kernel and udev people, it seems
+    that it is a *feature* that modprobe return before udev creates
+    devices, so now if we don't find yhe device, we wait max
+    7 seconds (with a check every 0.1 sec) to allow udev to really
+    createdevice (Closes: #268130). Thanks to Karl Hegbloom and
+    Bastian Kleineidam.
+  * We try also to unload the module microcode at the end
+    (the new modutils from module-init-tools don't automatically
+    remove modules). Thanks to Karl Hegbloom
+  * POSIX portability. Now init.d script is more portable
+    (works with dash)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Fri, 17 Sep 2004 08:38:19 +0200
+
+microcode.ctl (1.09-1) unstable; urgency=low
+
+  * New upstream release (microcode: 02Sep2004 and new upstream mail)
+  * Corrected postinit script, try to download new version, also
+    if a local old version ist installed.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 13 Sep 2004 21:58:28 +0200
+
+microcode.ctl (1.07-2) unstable; urgency=low
+
+  * In init.d script Now we handle 3 different path of microcode devices
+    (classic/LANANA/makedev, newer devfs, debian udev)
+    Above change work only for init.d script, so we add a note
+    in Readme.Debian.
+    Thanks "ehikory" for pointing this problem, and for
+    testing the script in devfsd environment.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 28 Apr 2004 08:12:45 +0200
+
+microcode.ctl (1.07-1) unstable; urgency=low
+
+  * New upstream release: new microcode (closes: #243459)
+  * Allow "dependens" with module-init-tools instead of modutils
+   (closes: #237225)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Tue, 13 Apr 2004 22:24:13 +0200
+
+microcode.ctl (1.06-9) unstable; urgency=low
+
+  * debian/control: suggests 'wget' and 'bzip2', eventualy used in
+    postinst script (closes: #220133)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 17 Nov 2003 21:48:11 +0100
+
+microcode.ctl (1.06-8) unstable; urgency=low
+
+  * Changes the init.d script so that we don't print anything in case
+    that a package is removed but not purged. (closes: #197659)
+    Changed also some return value to follow LSB
+  * Updated scripts to use debhelper v4, i.e.:
+    - added debian/compact
+    - use dh_installman instead of dh_installmanpages
+    - remove debian/confiles (now automagically generated by debhelper)
+  * Updated to debian policy 3.6.1:
+    - now Makefile will handle DEB_BUILD_OPTIONS
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 22 Oct 2003 22:45:06 +0200
+
+microcode.ctl (1.06-7) unstable; urgency=low
+
+  * Updated the IP of people.debian.org (closes: #171452)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed,  5 Feb 2003 20:10:28 +0100
+
+microcode.ctl (1.06-6) unstable; urgency=high
+
+  Patches from Nate Eldredge:
+  * Fix my grave pointer error (closes: #129467)
+  * Some improvements: new dynamic buffer generation (removed -b option),
+    sscan error check, and other small changes (closes: #129472)
+  * microcode kernel modules can be removed automatically (closes: #129475)
+  
+  * some clean up, other small corrections, and maybe more bugs :-)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 16 Jan 2002 21:05:07 +0100
+
+microcode.ctl (1.06-5) unstable; urgency=medium
+
+  * Check size of command arguments (avoid buffer overflows)
+  * Corrected the semi-classical 'off by 4' bug in microcode buffer
+  * Create microcode buffer dynamically (and add an option
+    to specify the size). This should close the microcode.ctl
+    part of this bug: (closes: #121804)
+  * Fixed typo (four times) (closes: #120479)
+  * Don't show error from modutils. Changing modules.conf
+    is a task of kernel-sources-* packages (or of the
+    user) (closes: #121100)
+  * Small stylistic changed in the package description (closes: #125132)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 19 Dec 2001 18:29:48 +0100
+
+microcode.ctl (1.06-4) unstable; urgency=low
+
+  *  debian/postint: Don't exit prematurely, this solve:
+     init.d script now is called at every installation and
+     /usr/doc symlink is created. (closes: #114846)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon,  8 Oct 2001 21:46:39 +0200
+
+microcode.ctl (1.06-3) unstable; urgency=low
+
+  * Use numerical IP for microcode.dat server. This reduce from 55 sec to
+    10 sec the timeout period of non networked machines.
+    Further improvment reduced timout to 6 sec.
+    Thus removed ping test, this caused problem with some
+    firewalled networks (closes: #113096)
+  * Try also .bz2 or .gz version microcode.dat. This should reduces network
+    traffic from 425Kb to 110kB
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 24 Sep 2001 21:01:45 +0200
+
+microcode.ctl (1.06-2) unstable; urgency=low
+
+  * postinst: correct wget options. (closes: #112194)
+    and possible some more little changes (error
+    in packing, forget some change/correction in CVS)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 17 Sep 2001 16:20:23 +0200
+
+microcode.ctl (1.06-1) unstable; urgency=low
+
+  * New upstram version (new microcode)
+  * control: reintroduces the dependence on makedev
+  * microcode now is downloaded from the net, thus removed package microcode
+  * control: use header of libc6-dev instead of kernel-headers.
+  * postinst: Download the microcode from the net
+
+ -- Giacomo Catenazzi <cate@debian.org>  Mon, 10 Sep 2001 20:42:35 +0200
+
+microcode.ctl (1.04-5) unstable; urgency=low
+
+  * postint: missing '\' added (Closes #94292).
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 18 Apr 2001 19:05:55 +0200
+
+microcode.ctl (1.04-4) unstable; urgency=low
+
+  * microcode_ctl: corrected the location of microcode.dat
+      (closes #93489)
+  * changelog: Removed dependence makedev (>= 2.3.1-51). I told to
+      makedev's maintainer wrong data for microcode device :-(.
+      Waiting for a corrected version.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Thu, 12 Apr 2001 08:00:07 +0200
+
+microcode.ctl (1.04-3) unstable; urgency=low
+
+  * Latest kernel-image have microcode support, yet we don't require
+    anymore kernel-sources (closes: #85489, #85903)
+
+ -- Giacomo Catenazzi <cate@debian.org>  Wed, 14 Feb 2001 18:38:02 +0100
+
+microcode.ctl (1.04-2) unstable; urgency=low
+
+  * Now 'makedev' know about /dev/cpu/microcode. I will uses it.
+  * Fix some typos
+  * Try to load microcode modules before to try to update microcode.
+
+ -- Giacomo Catenazzi <cate@debian.org>  Thu,  8 Feb 2001 19:46:18 +0100
+
+microcode.ctl (1.04-1) unstable; urgency=low
+
+  * New upstream release
+  * microcode is now distributed in an additional package.
+    Thus this package is full GPL
+  * Intel changes the microcode license, after Debian complains.
+    Now we can put the two packages in the Debian mirrors
+  * First package officially in Debian
+  * Applied also an upstream patch (small corrections for Debian)
+  * microcode_ctl.start: Don't assume /dev/cpu/microcode to be a char dev.
+  * microcode_ctl.start: Return always 0. This make happy debhelper.
+  * microcode_ctl.start: Do the tests only in start|restart,..section
+
+ -- Giacomo Catenazzi <cate@debian.org>  Thu, 25 Jan 2001 08:03:18 +0100
+
+microcode.ctl (1.03-4) unstable; urgency=low
+
+  * Corrected some small errors.
+  * Now microcode_ctl is called after modprobe -s -q microcode.
+
+ -- Giacomo Catenazzi <cate@dplanet.ch>  Wed, 18 Oct 2000 21:38:17 +0200
+
+microcode.ctl (1.03-3) unstable; urgency=low
+
+  * Small correction to better conform to debian package policy.
+
+ -- Giacomo Catenazzi <cate@dplanet.ch>  Wed, 18 Oct 2000 17:32:57 +0200
+
+microcode.ctl (1.03-2) unstable; urgency=low
+
+  * Small correction
+
+ -- Giacomo Catenazzi <cate@neper.ethz.ch>  Wed, 20 Sep 2000 18:08:01 +0200
+
+microcode.ctl (1.03-1) unstable; urgency=low
+
+  * New upstream release
+  * Small changes
+ 
+ -- Giacomo Catenazzi <cate@neper.ethz.ch>  Tue, 12 Sep 2000 16:40:48 +0200
+
+microcode.ctl (1.02-2) unstable; urgency=low
+
+  * Small changes
+  * Microcode automaticly loaded at boot time
+  
+ -- Giacomo Catenazzi <cate@neper.ethz.ch>  Wed, 19 Jul 2000 22:19:03 +0200
+
+microcode.ctl (1.02-1) unstable; urgency=low
+
+  * Initial release.
+  * Adjusted Makefile for Debian use
+  * Change directory from /usr/bin to /usr/sbin
+  * Include kernel headers (/usr/src/linux/include instead /usr/include)
+  
+ -- Giacomo Catenazzi <cate@neper.ethz.ch>  Thu, 13 Jul 2000 21:31:14 +0200
